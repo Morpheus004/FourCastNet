@@ -84,6 +84,7 @@ def load_model(model, params, checkpoint_file):
     checkpoint = torch.load(checkpoint_fname)
     try:
         new_state_dict = OrderedDict()
+        print("checkpoint structure: ",checkpoint['model_state'].items())
         for key, val in checkpoint['model_state'].items():
             name = key[7:]
             if name != 'ged':
