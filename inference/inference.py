@@ -88,6 +88,7 @@ def load_model(model, params, checkpoint_file):
     model.zero_grad()
     checkpoint_fname = checkpoint_file
     checkpoint = torch.load(checkpoint_fname)
+    print("Printing contents of checkpoint ",dir(ch))
     try:
         new_state_dict = OrderedDict()
         for key, val in checkpoint['model_state'].items():
