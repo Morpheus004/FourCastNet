@@ -275,7 +275,8 @@ def autoregressive_inference(params, ic, valid_data_full, model):
             future_pred = model(first)
         else:
           if i < prediction_length-1:
-            future = valid_data[n_history+i+1]
+                    #TODO:  tried removing i from below . Does not seem right
+            future = valid_data[n_history+i]
           if orography:
             future_pred = model(torch.cat((future_pred, orog), axis=1)) #autoregressive step
           else:
@@ -361,7 +362,7 @@ if __name__ == '__main__':
     torch.cuda.set_device(0)
     torch.backends.cudnn.benchmark = True
     vis = args.vis
-    torch.cuda.current_device() if torch.cuda.is_available() else 'cpu'
+    # torch.cuda.current_device() if torch.cuda.is_available() else 'cpu'
     # Set up directory
     if args.override_dir is not None:
       assert args.weights is not None, 'Must set --weights argument if using --override_dir'
