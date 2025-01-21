@@ -276,7 +276,7 @@ def autoregressive_inference(params, ic, valid_data_full, model):
         else:
           if i < prediction_length-1:
                     #TODO:  tried removing i from below . Does not seem right
-            future = valid_data[n_history+i]
+            future = valid_data[n_history+i+1]
           if orography:
             future_pred = model(torch.cat((future_pred, orog), axis=1)) #autoregressive step
           else:
