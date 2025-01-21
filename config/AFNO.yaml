@@ -124,8 +124,8 @@ precip: &precip
   lr: 2.5E-4
   batch_size: 64
   max_epochs: 25
-  precip: '/pscratch/sd/p/pharring/ERA5/precip/total_precipitation'
-  time_means_path_tp: '/pscratch/sd/p/pharring/ERA5/precip/total_precipitation/time_means.npy'
+  precip: './precip_values/total_precipitation'
+  time_means_path_tp: './precip_values/time_means.npy'
   model_wind_path: '/pscratch/sd/s/shas1693/results/era5_wind/afno_backbone_finetune/0/training_checkpoints/best_ckpt.tar'
   precip_eps: !!float 1e-5
 
