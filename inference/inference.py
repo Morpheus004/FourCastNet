@@ -88,7 +88,7 @@ def load_model(model, params, checkpoint_file):
     checkpoint_fname = checkpoint_file
     
     # Use weights_only=True for security
-    checkpoint = torch.load(checkpoint_fname, weights_only=True)
+    checkpoint = torch.load(checkpoint_fname)
     print("Printing contents of checkpoint", dir(checkpoint))
 
     try:
