@@ -319,7 +319,7 @@ if __name__ == '__main__':
     torch.cuda.set_device(0)
     torch.backends.cudnn.benchmark = True
     vis = args.vis
-
+    torch.cuda.current_device() if torch.cuda.is_available() else 'cpu'
     # Set up directory
     if args.override_dir is not None:
       assert args.weights is not None, 'Must set --weights argument if using --override_dir'
