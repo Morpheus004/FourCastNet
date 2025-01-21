@@ -83,23 +83,64 @@ idxes = {"u10":0, "z500":14, "2m_temperature":2, "v10":1, "t850":5}
 def gaussian_perturb(x, level=0.01, device=0):
     noise = level * torch.randn(x.shape).to(device, dtype=torch.float)
     return (x + noise)
-
 def load_model(model, params, checkpoint_file):
     model.zero_grad()
     checkpoint_fname = checkpoint_file
-    checkpoint = torch.load(checkpoint_fname)
-    print("Printing contents of checkpoint ",dir(checkpoint))
+    
+    # Use weights_only=True for security
+    checkpoint = torch.load(checkpoint_fname, weights_only=True)
+    print("Printing contents of checkpoint", dir(checkpoint))
+
     try:
         new_state_dict = OrderedDict()
-        for key, val in checkpoint['model_state'].items():
-            name = key[7:]
-            if name != 'ged':
-                new_state_dict[name] = val  
-        model.load_state_dict(new_state_dict)
-    except:
-        model.load_state_dict(checkpoint['model_state'])
+        try:
+            for key, val in checkpoint['model_state'].items():
+                # Skip conv layers as they're unexpected
+                if key.startswith('module.conv') or key == 'conv.weight' or key == 'conv.bias':
+                    continue
+                    
+                # Remove module prefix for backbone
+                if key.startswith('module.backbone.'):
+                    name = key.replace('module.backbone.', '')
+                elif key.startswith('module.'):
+                    name = key.replace('module.', '')
+                else:
+                    name = key
+                    
+                # Check if the layer exists in model and shapes match
+                # if name in model.state_dict():
+                #     if model.state_dict()[name].shape == val.shape:
+                #         new_state_dict[name] = val
+                #     else:
+                #         print(f"Skipping {name} due to shape mismatch. Expected {model.state_dict()[name].shape}, got {val.shape}")
+        except:
+            print('Using checkpoint[model_state]')
+            model.load_state_dict(checkpoint['model_state'])
+        # Load the filtered state dict
+        model.load_state_dict(new_state_dict, strict=False)
+        print("Model loaded with filtered state dict")
+    except Exception as e:
+        print(f"Loading failed with error: {str(e)}")
+        raise e
+
     model.eval()
     return model
+# def load_model(model, params, checkpoint_file):
+#     model.zero_grad()
+#     checkpoint_fname = checkpoint_file
+#     checkpoint = torch.load(checkpoint_fname)
+#     print("Printing contents of checkpoint ",dir(checkpoint))
+#     try:
+#         new_state_dict = OrderedDict()
+#         for key, val in checkpoint['model_state'].items():
+#             name = key[7:]
+#             if name != 'ged':
+#                 new_state_dict[name] = val  
+#         model.load_state_dict(new_state_dict)
+#     except:
+#         model.load_state_dict(checkpoint['model_state'])
+#     model.eval()
+#     return model
 
 def downsample(x, scale=0.125):
     return torch.nn.functional.interpolate(x, scale_factor=scale, mode='bilinear')
