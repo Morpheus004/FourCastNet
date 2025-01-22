@@ -126,6 +126,6 @@ precip: &precip
   max_epochs: 25
   precip: './precip_values/total_precipitation'
   time_means_path_tp: './precip_values/time_means.npy'
-  model_wind_path: '/pscratch/sd/s/shas1693/results/era5_wind/afno_backbone_finetune/0/training_checkpoints/best_ckpt.tar'
+  model_wind_path: './FCN_weights_v0/backbone.ckpt'
   precip_eps: !!float 1e-5
 
