@@ -107,7 +107,7 @@
 #             secs = (ttot - 3600*hrs - 60*mins)
 #             channel_idx += 1
 # filestr = 'oct_2021_19_31'
-# dest = '/global/cscratch1/sd/jpathak/21var/oct_2021_19_21.h5'
+# dest = './global/cscratch1/sd/jpathak/21var/oct_2021_19_21.h5'
 #
 # src = '/project/projectdirs/dasrepo/ERA5/oct_2021_19_31_sfc.nc'
 # #u10 v10 t2m
@@ -237,20 +237,76 @@ def writetofile(src, dest, channel_idx, varslist, src_idx=0, frmt="nc"):
         raise
 
 
-dest = "./global/cscratch1/sd/jpathak/21var/oct_2021_19_21.h5"  # Modify this path
+filestr = "jan_2022_01_13"
+dest = "./global/cscratch1/sd/jpathak/21var/jan_2022_01_13.h5"
 
-# Create destination file if it doesn't exist
-if not os.path.exists(dest):
-    with h5py.File(dest, "w") as f:
-        pass
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_sfc.nc"
+# u10 v10 t2m
+writetofile(src, dest, 0, ["u10"])
+writetofile(src, dest, 1, ["v10"])
+writetofile(src, dest, 2, ["t2m"])
 
-# Process surface variables
-src_sfc = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_sfc.nc"
-for idx, var in enumerate(["u10", "v10", "t2m"]):
-    writetofile(src_sfc, dest, idx, [var])
+# sp mslp
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_sfc.nc"
+writetofile(src, dest, 3, ["sp"])
+writetofile(src, dest, 4, ["msl"])
 
-# Process pressure level variables
-src_pl = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_pl.nc"
-writetofile(
-    src_pl, dest, 3, ["z"], src_idx=3
-)  # Example for one pressure level variable
+# t850
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_pl.nc"
+writetofile(src, dest, 5, ["t"], 2)
+
+# uvz1000
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_pl.nc"
+writetofile(src, dest, 6, ["u"], 3)
+writetofile(src, dest, 7, ["v"], 3)
+writetofile(src, dest, 8, ["z"], 3)
+
+# uvz850
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_pl.nc"
+writetofile(src, dest, 9, ["u"], 2)
+writetofile(src, dest, 10, ["v"], 2)
+writetofile(src, dest, 11, ["z"], 2)
+
+# uvz 500
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_pl.nc"
+writetofile(src, dest, 12, ["u"], 1)
+writetofile(src, dest, 13, ["v"], 1)
+writetofile(src, dest, 14, ["z"], 1)
+
+# t500
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_pl.nc"
+writetofile(src, dest, 15, ["t"], 1)
+
+# z50
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_pl.nc"
+writetofile(src, dest, 16, ["z"], 0)
+
+# r500
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_pl.nc"
+writetofile(src, dest, 17, ["r"], 1)
+
+# r850
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_pl.nc"
+writetofile(src, dest, 18, ["r"], 2)
+
+# tcwv
+src = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_sfc.nc"
+writetofile(src, dest, 19, ["tcwv"])
+#
+# dest = "../global/cscratch1/sd/jpathak/21var/oct_2021_19_21.h5"  # Modify this path
+#
+# # Create destination file if it doesn't exist
+# if not os.path.exists(dest):
+#     with h5py.File(dest, "w") as f:
+#         pass
+#
+# # Process surface variables
+# src_sfc = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_sfc.nc"
+# for idx, var in enumerate(["u10", "v10", "t2m","sp",""]):
+#     writetofile(src_sfc, dest, idx, [var])
+#
+# # Process pressure level variables
+# src_pl = "./project/projectdirs/dasrepo/ERA5/jan_2022_01_13_pl.nc"
+# writetofile(
+#     src_pl, dest, 3, ["z"], src_idx=3
+# )  # Example for one pressure level variable
