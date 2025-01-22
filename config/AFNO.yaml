@@ -124,7 +124,7 @@ precip: &precip
   lr: 2.5E-4
   batch_size: 64
   max_epochs: 25
-  precip: './FCN_weights/precip'
+  precip: './FCN_weights_v0/precip'
   time_means_path_tp: './precip_values/time_means.npy'
   model_wind_path: './FCN_weights_v0/backbone.ckpt'
   precip_eps: !!float 1e-5
