@@ -124,9 +124,10 @@ def writetofile(src, dest, channel_idx, varslist, src_idx=0, frmt='nc'):
         Nimgtot = 52
         print(varslist[0])
         # Ensure destination file is created with correct shape
-        with h5py.File(dest, 'a') as fdest:
-            if 'fields' not in fdest:
-                fdest.create_dataset('fields', shape=(52, 20, 721, 1440), dtype='float32')
+        # I am ensuring this in the notebook
+        # with h5py.File(dest, 'a') as fdest:
+        #     if 'fields' not in fdest:
+        #         fdest.create_dataset('fields', shape=(52, 20, 721, 1440), dtype='float32')
 
         for variable_name in varslist:
             if frmt == 'nc':
