@@ -164,6 +164,7 @@ def setup(params):
       logging.info('Validation data from {}'.format(precip_paths[0]))
     valid_data_tp_full = h5py.File(precip_paths[0], 'r')['tp']
     logging.info(f"This is valid_data_full: {valid_data_full} \n This is valid_data_tp_full : {valid_data_tp_full}")
+    print(f"This is valid_data_full: {valid_data_full} \n This is valid_data_tp_full : {valid_data_tp_full}")
     return valid_data_full, valid_data_tp_full, model_wind, model
 
 
