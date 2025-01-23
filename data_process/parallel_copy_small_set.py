@@ -74,7 +74,7 @@ def writetofile(src, dest, channel_idx, varslist, src_idx=0, frmt='nc'):
             elif frmt == 'h5':
                 fsrc = h5py.File(src, 'r')[varslist[0]]
             print("fsrc shape", fsrc.shape)
-            fdest = h5py.File(dest, 'a', driver='mpio', comm=MPI.COMM_WORLD)
+            fdest = h5py.File(dest, 'a')
 
             start = time.time()
             while idx<end:
