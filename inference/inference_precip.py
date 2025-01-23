@@ -106,6 +106,7 @@ def setup(params):
     img_shape_y = valid_dataset.img_shape_y
     params.img_shape_x = img_shape_x
     params.img_shape_y = img_shape_y
+    logging.info(f"Image shape for x(seems long): {img_shape_x}\n Image shape for y(seems lat): {img_shape_y}")
     if params.log_to_screen:
       logging.info('Loading trained model checkpoint from {}'.format(params['best_checkpoint_path']))
 
@@ -162,6 +163,7 @@ def setup(params):
       logging.info('Loading validation precip data')
       logging.info('Validation data from {}'.format(precip_paths[0]))
     valid_data_tp_full = h5py.File(precip_paths[0], 'r')['tp']
+    logging.info(f"This is valid_data_full: {valid_data_full} \n This is valid_data_tp_full : {valid_data_tp_full}")
     return valid_data_full, valid_data_tp_full, model_wind, model
 
 
