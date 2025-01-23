@@ -122,7 +122,7 @@ def writetofile(src, dest, channel_idx, varslist, src_idx=0, frmt='nc'):
     if os.path.isfile(src):
         batch = 2**4
         Nimgtot = 52
-
+        print(varslist[0])
         # Ensure destination file is created with correct shape
         with h5py.File(dest, 'a') as fdest:
             if 'fields' not in fdest:
