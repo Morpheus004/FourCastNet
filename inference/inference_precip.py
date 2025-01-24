@@ -153,6 +153,8 @@ def setup(params):
         logging.info('Loading validation data')
         logging.info('Validation data from {}'.format(files_paths[yr]))
 
+    print('Loading validation data')
+    print('Validation data from {}'.format(files_paths[yr]))
     valid_data_full = h5py.File(files_paths[yr], 'r')['fields']
 
     # precip paths
@@ -162,6 +164,8 @@ def setup(params):
     if params.log_to_screen:
       logging.info('Loading validation precip data')
       logging.info('Validation data from {}'.format(precip_paths[0]))
+    print('Loading validation precip data')
+    print('Validation data from {}'.format(precip_paths[0]))
     valid_data_tp_full = h5py.File(precip_paths[0], 'r')['tp']
     logging.info(f"This is valid_data_full: {valid_data_full} \n This is valid_data_tp_full : {valid_data_tp_full}")
     print(f"This is valid_data_full: {valid_data_full} \n This is valid_data_tp_full : {valid_data_tp_full}")
@@ -225,7 +229,7 @@ def autoregressive_inference(params, ic, valid_data_full, valid_data_tp_full, mo
     #autoregressive inference
     if params.log_to_screen:
       logging.info('Begin autoregressive inference')
-    
+    print("Begin autoregressive inference")
     with torch.no_grad():
       for i in range(valid_data.shape[0]): 
         if i==0: #start of sequence
@@ -246,6 +250,7 @@ def autoregressive_inference(params, ic, valid_data_full, valid_data_tp_full, mo
             future_pred = model_wind(first)
           future_pred_tp = model(future_pred)
         else:
+          print(f"n_history : {n_history} and i from valid_data.shape[0]) : {i}")
           if i < prediction_length-1:
             future = valid_data[n_history+i+1]
             future_tp = valid_data_tp[i+1]
