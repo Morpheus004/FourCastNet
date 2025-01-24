@@ -274,7 +274,7 @@ def autoregressive_inference(params, ic, valid_data_full, model):
           else:
             future_pred = model(first)
         else:
-          print(f"n_history : {n_history} and i from valid_data.shape[0] : {i}")
+          print(f"n_history : {n_history} and i from valid_data.shape[0])")
           if i < prediction_length-1:
                     #TODO:  tried removing i from below . Does not seem right
             future = valid_data[n_history+i+1]
@@ -324,6 +324,7 @@ def autoregressive_inference(params, ic, valid_data_full, model):
             logging.info('[COARSE] Predicted timestep {} of {}. {} RMS Error: {}, ACC: {}'.format(i, prediction_length, fld, valid_loss_coarse[i, idx],
                         acc_coarse[i, idx]))
 
+    print('Predicted timestep {} of {}. {} RMS Error: {}, ACC: {}'.format(i, prediction_length, fld, valid_loss[i, idx], acc[i, idx]))
     seq_real = seq_real.cpu().numpy()
     seq_pred = seq_pred.cpu().numpy()
     valid_loss = valid_loss.cpu().numpy()
@@ -452,6 +453,7 @@ if __name__ == '__main__':
     #run autoregressive inference for multiple initial conditions
     for i, ic in enumerate(ics):
       logging.info("Initial condition {} of {}".format(i+1, n_ics))
+      print("Initial condition {} of {}".format(i+1, n_ics))
       sr, sp, vl, a, au, vc, ac, acu, accland, accsea = autoregressive_inference(params, ic, valid_data_full, model)
 
       if i ==0 or len(valid_loss) == 0:
