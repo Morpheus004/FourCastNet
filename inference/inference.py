@@ -274,6 +274,7 @@ def autoregressive_inference(params, ic, valid_data_full, model):
           else:
             future_pred = model(first)
         else:
+          print(f"n_history : {n_history} and i from valid_data.shape[0] : {i}")
           if i < prediction_length-1:
                     #TODO:  tried removing i from below . Does not seem right
             future = valid_data[n_history+i+1]
@@ -397,6 +398,8 @@ if __name__ == '__main__':
         if vis: # visualization for just the first ic (or any ic)
             ics = [0]
         n_ics = len(ics)
+        print(f"(main)Length of initial conditions is : {n_ics}")
+        print(f"(main)ics array is : {ics}")
     elif params["ics_type"] == "datetime":
         date_strings = params["date_strings"]
         ics = []
@@ -419,6 +422,7 @@ if __name__ == '__main__':
         n_ics = len(ics)
 
     logging.info("Inference for {} initial conditions".format(n_ics))
+    print("Inference for {} initial conditions".format(n_ics))
     try:
       autoregressive_inference_filetag = params["inference_file_tag"]
     except:
